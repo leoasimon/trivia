@@ -1,15 +1,12 @@
 import React from "react";
 import "./app.css";
-import QuestionDisplay from "./features/questions/components/QuestionDisplay";
-import { basicQuestion } from "./features/questions/mocks";
+import SinglePlayerPlay from "./features/singlePlayer/components/SinglePlayerPlay";
+import { singlePlayerGame } from "./features/singlePlayer/mocks";
 
 function App() {
-  const next = (isCorrect: boolean) => {
-    console.log(isCorrect ? "Right!" : "Wrong!");
-  };
   return (
     <div>
-      <QuestionDisplay question={basicQuestion} next={next} />
+      <SinglePlayerPlay game={singlePlayerGame} />
     </div>
   );
 }
