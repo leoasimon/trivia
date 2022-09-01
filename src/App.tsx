@@ -1,12 +1,11 @@
 import React from "react";
 import "./app.css";
-import SinglePlayerPlay from "./features/singlePlayer/components/SinglePlayerPlay";
-import { singlePlayerGame } from "./features/singlePlayer/mocks";
+import SinglePlayerPage from "./features/singlePlayer/page/SinglePlayerPage";
 
 function App() {
   return (
     <div>
-      <SinglePlayerPlay game={singlePlayerGame} />
+      <SinglePlayerPage />
     </div>
   );
 }

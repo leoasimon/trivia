@@ -4,18 +4,18 @@ import { SinglePlayerGame } from "../../types";
 
 interface SinglePlayerPlayProps {
   game: SinglePlayerGame;
+  goToNextQuestion: (isAnswerCorrect: boolean) => void;
 }
 
-const SinglePlayerPlay: React.FC<SinglePlayerPlayProps> = ({ game }) => {
+const SinglePlayerPlay: React.FC<SinglePlayerPlayProps> = ({
+  game,
+  goToNextQuestion,
+}) => {
   const question = game.questions[game.step];
-
-  const next = (isCorrect: boolean) => {
-    console.log(isCorrect ? "Right!" : "Wrong!");
-  };
 
   return (
     <div>
-      <QuestionDisplay question={question} next={next} />
+      <QuestionDisplay question={question} next={goToNextQuestion} />
     </div>
   );
 };

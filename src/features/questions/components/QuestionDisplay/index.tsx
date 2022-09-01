@@ -19,6 +19,10 @@ const QuestionDisplay: React.FC<QuestionDisplayProps> = ({
   const timeOut = useRef<any>();
 
   useEffect(() => {
+    setPickedAnswer(undefined);
+  }, [question]);
+
+  useEffect(() => {
     if (pickedAnswer !== undefined) {
       const isCorrect = pickedAnswer === question.correctAnswer;
       timeOut.current = setTimeout(() => {
