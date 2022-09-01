@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import Loader from "../../../../ui/Loader";
 import SinglePlayerGameResult from "../../components/SinglePlayerGameResult";
 import SinglePlayerPlay from "../../components/SinglePlayerPlay";
 import { loadGame, nextQuestion } from "../../singlePlayerSlice";
@@ -21,7 +22,7 @@ const SinglePlayerPage: React.FC = () => {
   };
 
   if (singlePlayerState.status === "loading") {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (singlePlayerState.status === "failed") {

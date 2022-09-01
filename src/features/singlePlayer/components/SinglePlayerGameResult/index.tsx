@@ -1,6 +1,8 @@
-import { Button, Space, Typography } from "antd";
+import { Button, Typography } from "antd";
 import React from "react";
 import { SinglePlayerGame } from "../../types";
+
+import "./index.css";
 
 interface SinglePlayerGameResultProps {
   game: SinglePlayerGame;
@@ -12,14 +14,14 @@ const SinglePlayerGameResult: React.FC<SinglePlayerGameResultProps> = ({
   newGame,
 }) => {
   return (
-    <Space direction="vertical">
-      <Typography.Title level={3}>
+    <div className="game-result">
+      <Typography.Title level={3} className="game-result__score">
         Score: {`${game.score} / ${game.step}`}
       </Typography.Title>
       <Button type="primary" onClick={newGame}>
         New Game
       </Button>
-    </Space>
+    </div>
   );
 };
 

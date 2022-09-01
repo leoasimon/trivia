@@ -1,0 +1,13 @@
+.trivia-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.trivia-layout header {
+  padding: 12px;
+}
+
+.trivia-layout main {
+  width: 100%;
+}
