@@ -1,0 +1,19 @@
+.question-display {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.question-display__answers {
+  width: 100%;
+}
+
+.question-display__answer {
+  margin-top: 12px;
+}
+
+.question-display__answer:first-child {
+  margin-top: 0;
+}
