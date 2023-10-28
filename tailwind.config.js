@@ -12,6 +12,7 @@ export default {
       "blue": "#0A4BCC",
       "blue-lighter": "#7C97F9",
       "blue-light": "#B8C3FE",
+      "blue-dark": "#002950",
       "light-grey": "#EBE6E9",
       "almost-white": "#FCFAFB",
       "white": "#FFFFFF",
