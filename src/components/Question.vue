@@ -3,9 +3,7 @@
     <div class="flex justify-end text-blue text-sm">
       <span>question {{ questionIndex + 1 }} / 10</span>
     </div>
-    <p class="text-black mt-4">
-      {{ question.question }}
-    </p>
+    <p class="text-black mt-4" v-html="question.question" />
     <div class="mt-8">
       <div
         class="answer flex p-4 w-full items-center hover:bg-purple-extra-light hover:cursor-pointer"
@@ -17,7 +15,8 @@
       >
         <div class="flex-1">
           <span class="font-bold text-purple">{{ indexToLetter(i) }}</span>
-          <span class="text-dark-grey"> - {{ answer }}</span>
+          <span class="text-dark-grey"> - </span>
+          <span class="text-dark-grey" v-html="answer" />
         </div>
         <div>
           <div class="w-[18px] h-[18px] border-purple border rounded-full">
@@ -52,6 +51,8 @@
 <script setup>
 import { computed, ref } from "vue";
 
+import { shuffleArray } from "../utils/arrayUtils"
+
 const props = defineProps(["question", "questionIndex"]);
 
 const emit = defineEmits(["onQuestionAnswered"])
@@ -77,17 +78,4 @@ const submitAnswer = () => {
 }
 
 const indexToLetter = (i) => "ABCDEFGH"[i];
-
-const shuffleArray = (arr) => {
-  let indexes = Array.from({ length: arr.length }, (_, i) => i);
-  const shuffled = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    const index = Math.floor(Math.random() * indexes.length);
-    const randomIndex = indexes[index];
-    shuffled.push(arr[randomIndex]);
-    indexes.splice(index, 1);
-  }
-  return shuffled;
-};
 </script>
