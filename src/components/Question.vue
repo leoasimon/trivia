@@ -73,6 +73,7 @@ const submitAnswer = () => {
     const isCorrect = selectedAnswer.value === props.question.correct_answer;
     alert(isCorrect ? "Nice one!" : "Wrong");
     emit("onQuestionAnswered", isCorrect);
+    selectedAnswer.value = null;
 }
 
 const indexToLetter = (i) => "ABCDEFGH"[i];
