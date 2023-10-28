@@ -20,7 +20,7 @@
     @click="$emit('startGame')"
     class="mx-auto mt-6 text-xl bg-purple text-white p-6 rounded-full shadow-xl shadow-blue-dark/50"
   >
-    start the game
+    START THE GAME
   </button>
 </template>
 
