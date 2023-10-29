@@ -9,6 +9,7 @@ export default {
       "purple-lighter": "#FA88D9",
       "purple-light": "#FEBEE8",
       "purple-extra-light": "#FFF2FA",
+      "purple-extra-dark": "#240026",
       "blue": "#0A4BCC",
       "blue-lighter": "#7C97F9",
       "blue-light": "#B8C3FE",

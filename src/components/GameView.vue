@@ -7,6 +7,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+
 import Question from './Question.vue';
 
 const emit = defineEmits(["onGameOver"]);
@@ -14,14 +15,20 @@ const emit = defineEmits(["onGameOver"]);
 const loading = ref(true);
 const questions = ref([]);
 const questionIndex = ref(0);
+const score = ref(0);
+const openedModal = ref(null);
 
 const currentQuestion = computed(() => questions.value[questionIndex.value]);
 
 const handleQuestionAnswered = (isCorrect) => {
+    score.value += isCorrect ? 1 : 0;
+    openedModal.value = isCorrect ? "SUCCESS" : "ERROR"
     if (questionIndex.value < 9) {
         questionIndex.value++;
     } else {
-        emit("onGameOver");
+        emit("onGameOver", {
+            score: score.value
+        });
     }
 }
 onMounted(() => {

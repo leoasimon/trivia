@@ -10,8 +10,8 @@ const handleGameStart = () => {
   gameStatus.value = "ONGOING";
 }
 
-const handleGameOver = () => {
-  alert("That was fun!");
+const handleGameOver = ({ score }) => {
+  alert(`Final score: ${score} / 10`);
   gameStatus.value = "NOT_STARTED";
 }
 </script>

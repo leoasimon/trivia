@@ -1,4 +1,10 @@
 <template>
+  <SuccessModal :is-open="isCorrect === true" />
+  <FailureModal
+    :isOpen="isCorrect === false"
+    :correct-answer="question.correct_answer"
+    :correct-answer-index="answers.indexOf(question.correct_answer)"
+  />
   <div class="w-[90vw] mx-auto mt-4 p-4 bg-white shadow-md rounded-md">
     <div class="flex justify-end text-blue text-sm">
       <span>question {{ questionIndex + 1 }} / 10</span>
@@ -51,13 +57,16 @@
 <script setup>
 import { computed, ref } from "vue";
 
-import { shuffleArray } from "../utils/arrayUtils"
+import { shuffleArray } from "../utils/arrayUtils";
+import SuccessModal from "./SuccessModal.vue";
+import FailureModal from "./FailureModal.vue";
 
 const props = defineProps(["question", "questionIndex"]);
 
-const emit = defineEmits(["onQuestionAnswered"])
+const emit = defineEmits(["onQuestionAnswered"]);
 
 const selectedAnswer = ref(null);
+const isCorrect = ref(null);
 
 const answers = computed(() =>
   shuffleArray([
@@ -71,11 +80,13 @@ const selectAnswer = (answer) => {
 };
 
 const submitAnswer = () => {
-    const isCorrect = selectedAnswer.value === props.question.correct_answer;
-    alert(isCorrect ? "Nice one!" : "Wrong");
-    emit("onQuestionAnswered", isCorrect);
+  isCorrect.value = selectedAnswer.value === props.question.correct_answer;
+  setTimeout(() => {
+    emit('onQuestionAnswered', isCorrect.value);
     selectedAnswer.value = null;
-}
+    isCorrect.value = null;
+  }, 3000)
+};
 
 const indexToLetter = (i) => "ABCDEFGH"[i];
 </script>
