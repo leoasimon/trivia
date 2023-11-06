@@ -3,9 +3,10 @@
   <FailureModal
     :isOpen="isCorrect === false"
     :correct-answer="question.correct_answer"
+    :msg="selectedAnswer === null ? 'Timeout!' : 'Wrong!'"
     :correct-answer-index="answers.indexOf(question.correct_answer)"
   />
-  <div class="w-[90vw] mx-auto mt-4 p-4 bg-white shadow-md rounded-md">
+  <div class="w-[90vw] mx-auto mt-4 p-4 bg-white shadow-md rounded-md relative">
     <div class="flex justify-end text-blue text-sm">
       <span>question {{ questionIndex + 1 }} / 10</span>
     </div>
@@ -45,6 +46,14 @@
         SUBMIT
       </button>
     </div>
+    <div
+      class="absolute h-2 rounded-b-md bg-purple bottom-0 left-0"
+      :class="{
+        'w-full': timerStatus === 'READY',
+        'w-0 transition-width duration-[10000ms] ease-linear rounded-br-none':
+          timerStatus === 'ONGOING',
+      }"
+    />
   </div>
 </template>
 
@@ -55,7 +64,7 @@
 </style>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 import { shuffleArray } from "../utils/arrayUtils";
 import SuccessModal from "./SuccessModal.vue";
@@ -67,6 +76,8 @@ const emit = defineEmits(["onQuestionAnswered"]);
 
 const selectedAnswer = ref(null);
 const isCorrect = ref(null);
+const timerStatus = ref("PAUSED");
+const tid = ref(null);
 
 const answers = computed(() =>
   shuffleArray([
@@ -75,17 +86,46 @@ const answers = computed(() =>
   ])
 );
 
+watch(
+  () => props.question,
+  (v) => {
+    onNewQuestion();
+  }
+);
+
+onMounted(() => {
+  onNewQuestion();
+});
+
+const onNewQuestion = () => {
+  timerStatus.value = "READY";
+  setTimeout(() => {
+    startTimer();
+  }, 500);
+};
+
+const startTimer = () => {
+  timerStatus.value = "ONGOING";
+  tid.value = setTimeout(() => {
+    submitAnswer();
+  }, 10000);
+};
+
 const selectAnswer = (answer) => {
   selectedAnswer.value = answer;
 };
 
 const submitAnswer = () => {
   isCorrect.value = selectedAnswer.value === props.question.correct_answer;
+  timerStatus.value = "PAUSED";
+  if (tid.value) {
+    clearTimeout(tid.value);
+  }
   setTimeout(() => {
-    emit('onQuestionAnswered', isCorrect.value);
+    emit("onQuestionAnswered", isCorrect.value);
     selectedAnswer.value = null;
     isCorrect.value = null;
-  }, 3000)
+  }, 3000);
 };
 
 const indexToLetter = (i) => "ABCDEFGH"[i];

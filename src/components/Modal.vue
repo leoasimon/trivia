@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute bg-purple-extra-dark/40 w-screen r-0 t-0"
+    class="z-10 absolute bg-purple-extra-dark/40 w-screen r-0 t-0"
     :class="{
       'border border-red': type === 'error',
       'border border-green': type === 'success',

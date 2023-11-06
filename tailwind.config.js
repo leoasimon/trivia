@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.vue"],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'width': 'width'
+      }
+    },
     colors: {
       "purple": "#D41EB5",
       "purple-darker": "#A80A97",

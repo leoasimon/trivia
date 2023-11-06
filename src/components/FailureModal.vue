@@ -3,7 +3,7 @@
     <div class="py-6">
       <div class="w-32 m-auto flex flex-col">
         <img src="../assets/wrong.svg" class="w-32 h-32" />
-        <span class="text-red text-xl text-center">Wrong!</span>
+        <span class="text-red text-xl text-center">{{ msg }}</span>
       </div>
       <div class="p-6">
         <p class="text-black">The correct answer is:</p>
@@ -22,7 +22,7 @@
 <script setup>
 import Modal from "./Modal.vue";
 
-defineProps(["correctAnswer", "correctAnswerIndex"]);
+defineProps(["correctAnswer", "correctAnswerIndex", "msg"]);
 
 const indexToLetter = (i) => "ABCDEFGH"[i];
 </script>
