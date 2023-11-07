@@ -1,10 +1,14 @@
 <template>
-  <SuccessModal :is-open="isCorrect === true" />
+  <SuccessModal
+    :is-open="isCorrect === true"
+    @next-question="handleNextQuestion"
+  />
   <FailureModal
     :isOpen="isCorrect === false"
     :correct-answer="question.correct_answer"
     :msg="selectedAnswer === null ? 'Timeout!' : 'Wrong!'"
     :correct-answer-index="answers.indexOf(question.correct_answer)"
+    @next-question="handleNextQuestion"
   />
   <div class="w-[90vw] mx-auto mt-4 p-4 bg-white shadow-md rounded-md relative">
     <div class="flex justify-end text-blue text-sm">
@@ -77,7 +81,8 @@ const emit = defineEmits(["onQuestionAnswered"]);
 const selectedAnswer = ref(null);
 const isCorrect = ref(null);
 const timerStatus = ref("PAUSED");
-const tid = ref(null);
+const timerTid = ref(null);
+const modalTid = ref(null);
 
 const answers = computed(() =>
   shuffleArray([
@@ -88,7 +93,7 @@ const answers = computed(() =>
 
 watch(
   () => props.question,
-  (v) => {
+  () => {
     onNewQuestion();
   }
 );
@@ -106,7 +111,7 @@ const onNewQuestion = () => {
 
 const startTimer = () => {
   timerStatus.value = "ONGOING";
-  tid.value = setTimeout(() => {
+  timerTid.value = setTimeout(() => {
     submitAnswer();
   }, 20000);
 };
@@ -118,15 +123,22 @@ const selectAnswer = (answer) => {
 const submitAnswer = () => {
   isCorrect.value = selectedAnswer.value === props.question.correct_answer;
   timerStatus.value = "PAUSED";
-  if (tid.value) {
-    clearTimeout(tid.value);
+  if (timerTid.value) {
+    clearTimeout(timerTid.value);
   }
-  setTimeout(() => {
-    emit("onQuestionAnswered", isCorrect.value);
-    selectedAnswer.value = null;
-    isCorrect.value = null;
+  modalTid.value = setTimeout(() => {
+    handleNextQuestion();
   }, 3000);
 };
+
+const handleNextQuestion = () => {
+  if (modalTid.value) {
+    clearTimeout(modalTid.value);
+  }
+  emit("onQuestionAnswered", isCorrect.value);
+  selectedAnswer.value = null;
+  isCorrect.value = null;
+}
 
 const indexToLetter = (i) => "ABCDEFGH"[i];
 </script>
