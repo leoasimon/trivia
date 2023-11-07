@@ -11,7 +11,7 @@
       <p class="mt-2">The rules are simple:</p>
       <ul class="list-disc ml-6">
         <li>Ten questions</li>
-        <li>Ten seconds per question</li>
+        <li>Twenty seconds per question</li>
       </ul>
       <p class="mt-2">Good luck!</p>
     </div>

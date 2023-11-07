@@ -50,7 +50,7 @@
       class="absolute h-2 rounded-b-md bg-purple bottom-0 left-0"
       :class="{
         'w-full': timerStatus === 'READY',
-        'w-0 transition-width duration-[10000ms] ease-linear rounded-br-none':
+        'w-0 transition-width duration-[20000ms] ease-linear rounded-br-none':
           timerStatus === 'ONGOING',
       }"
     />
@@ -108,7 +108,7 @@ const startTimer = () => {
   timerStatus.value = "ONGOING";
   tid.value = setTimeout(() => {
     submitAnswer();
-  }, 10000);
+  }, 20000);
 };
 
 const selectAnswer = (answer) => {
